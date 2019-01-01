@@ -1,15 +1,15 @@
 #include "csapp.h"
-// http://www.recipepuppy.com/about/api/
+#include "jsmn/jsmn.h" // https://github.com/zserge/jsmn
+// using http://www.recipepuppy.com/about/api/
 
 int main(void) {
     char *buf, *p;
     char arg1[MAXLINE], arg2[MAXLINE], arg3[MAXLINE], content[MAXLINE];
-            // ----- will the args come in as "cookies" or "q=cookies"?  -----
-            //       (just parse if necessary)
     char buffer[MAXLINE];
     char buffer2[MAXLINE];
+    char json[MAXLINE];
 
-    /* Extract the arguments */
+    // Extract argument(s)
     if ((buf = getenv("QUERY_STRING")) != NULL) {
       //
       p = strchr(buf, '&');
@@ -53,24 +53,28 @@ int main(void) {
     // if they search for ingredients
             // ----- ADD CODE ------
 
-    Rio_writen(clientfd, buffer, MAXLINE);    // send request
-    Rio_readlineb(&rio, buffer2, MAXLINE);    // get response
-    sprintf(content, "%s%s\n", content, buffer2);
-    Close(clientfd);
+    Rio_writen(clientfd, buffer, MAXLINE);        // send request
+    Rio_readlineb(&rio, buffer2, MAXLINE);        // get response
+    sprintf(json, "%s%s\n", buffer2);             // store response in json buffer
+    Close(clientfd);                              // close connection
 
-    /* Make the response body */
+    // parse jSON
+    
+
+    sprint(content, "%s%s\n", content, json);   // store content and parsed data
+
+    // Make response body
     sprintf(content, "Results for %s: ", arg1);
     sprintf(content, "%s\r\n<p>", content);
     sprintf(content, "%s\r\n<p>", content);
     sprintf(content, "%sThanks for visiting!\r\n", content);
 
-    /* Generate the HTTP response */
+    // Generate HTTP response
     printf("Connection: close\r\n");
     printf("Content-length: %d\r\n", (int)strlen(content));
     printf("Content-type: text/html\r\n\r\n");
     printf("%s", content);
     fflush(stdout);
 
-    Close(clientfd);
     exit(0);
 }
