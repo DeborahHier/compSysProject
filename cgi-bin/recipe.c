@@ -189,24 +189,25 @@ int main(void) {
     strcpy(thumbnail3, thumbnail3_2);
 
     // Make response body
-    sprintf(content, "Recipe Results for \"%s:\"<p>\r\n", arg1);
+    sprintf(content, "<img src=\"http://diningcoupons.us/img/logonew.png\" alt=\"Recipe Puppy\"/> <p>\r\n");
+    sprintf(content, "%sRecipe Results for \"%s:\"<p>\r\n", content, arg1);
 
     //    Recipe 1
     sprintf(content, "%s%s:<p>\r\n", content, r1_title);                                      // title
     sprintf(content, "%sIngredients: %s <p>\r\n", content, r1_ingredients);                   // ingredients
-    sprintf(content, "%s<a href=%s> <img src=%s alt=\"recipe ingredients\"/></a>\r\n<p>",
+    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the full recipe here!\"/></a>\r\n<p>",
             content, r1_link, thumbnail);                                                     // link and thumbnail
 
     //  Recipe 2
     sprintf(content, "%s%s:<p>\r\n", content, r2_title);                                      // title
     sprintf(content, "%sIngredients: %s <p>\r\n", content, r2_ingredients);                   // ingredients
-    sprintf(content, "%s<a href=%s> <img src=%s alt=\"recipe ingredients\"/></a>\r\n<p>",
+    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the full recipe here!\"/></a>\r\n<p>",
             content, r2_link, thumbnail2);                                                    // link and thumbnail
 
     // Recipe 3
     sprintf(content, "%s%s:<p>\r\n", content, r3_title);                                      // title
     sprintf(content, "%sIngredients: %s <p>\r\n", content, r3_ingredients);                   // ingredients
-    sprintf(content, "%s<a href=%s> <img src=%s alt=\"recipe ingredients\"/></a>\r\n<p>",
+    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the full recipe here!\"/></a>\r\n<p>",
             content, r3_link, thumbnail3);                                                    // link and thumbnail
 
     sprintf(content, "%sThanks for visiting!\r\n", content);
