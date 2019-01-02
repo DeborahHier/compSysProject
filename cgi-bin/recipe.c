@@ -31,7 +31,6 @@ int main(void) {
     // establish connection with API
     rio_t rio;
     char *host, *port;
-
     host = "www.recipepuppy.com";
     port = "80";
     int clientfd = Open_clientfd(host, port);
@@ -47,7 +46,7 @@ int main(void) {
     Close(clientfd);                              // close the connection
 
     char *response_split;
-    response_split = strchr(buffer2, '[');       // split response on occurence of "{"
+    response_split = strchr(buffer2, '[');        // split response on 1st occurence of "{"
     *response_split = '\0';
     strcpy(response, response_split + 1);         // save necessary info in response
 
@@ -69,8 +68,6 @@ int main(void) {
     strcpy(r1_title, title1);
 
     //      href
-
-
     // DO LINK AND THUMBNAIL TOGETHER
     char link1[MAXLINE], link1_2[MAXLINE], r1_link[MAXLINE];
     char *l1, *l2;
@@ -81,28 +78,42 @@ int main(void) {
     l2 = strchr(link1_2, ',');
     *l2 = '\0';
     strcpy(r1_link, link1_2);
-
     //      ingredients
-
-
-    // r2 = strchr(r1 + 1, '}');
-    // *r2 = '\0';
-    // strcpy(recipe2, r1 + 1);
-    // r3 = strchr(r2 + 1, '}');
-    // *r3 = '\0';
-    // strcpy(recipe3, r2 + 1);
-
-
-    // sprintf(content, "%s%s\n", content, response);
+    char ingredients1_1[MAXLINE], ingredients1_2[MAXLINE], ingredients1_3[MAXLINE], r1_ingredients[MAXLINE];
+    char *i1, *i2, *i3;
+    strcpy(ingredients1_1, l2 + 1);
+    i1 = strchr(ingredients1_1, ':');
+    *i1 = '\0';
+    strcpy(ingredients1_2, i1 + 1);
+    i2 = strchr(ingredients1_2, '\"');
+    *i2 = '\0';
+    strcpy(ingredients1_3, i2 + 1);
+    i3 = strchr(ingredients1_3, '\"');
+    *i3 = '\0';
+    strcpy(r1_ingredients, ingredients1_3);
+    //      thumbnail
+    char thumbnail1_1[MAXLINE], thumbnail1_2[MAXLINE], thumbnail[MAXLINE];
+    char *th1, *th2;
+    strcpy(thumbnail1_1, i3 +1);
+    th1 = strchr(thumbnail1_1, ':');
+    *th1 = '\0';
+    strcpy(thumbnail1_2, th1 + 1);
+    th2 = strchr(thumbnail1_2, '}');
+    *th2 = '\0';
+    strcpy(thumbnail, thumbnail1_2);
 
 
     // Make response body
-    sprintf(content, "<h1> Recipe Results for \"%s:\"</h1>\r\n", arg1);
-    sprintf(content, "<h2> %s </h2>\r\n", r1_title);
+    sprintf(content, "Recipe Results for \"%s:\"<p>\r\n", arg1);
+    //    Recipe 1
+    sprintf(content, "%s%s:<p>\r\n", content, r1_title);                                      // title
+    sprintf(content, "%sIngredients: %s <p>\r\n", content, r1_ingredients);                   // ingredients
+    sprintf(content, "%s<a href=%s> <img src=%s alt=\"recipe ingredients\"/></a>\r\n<p>", content, r1_link, thumbnail); // link and thumbnail
 
-    // ------ ADD IN WITH THUMBNAIL ---------
-    // sprintf(content, "<a href=\"%s\"/> <img THUMBNAIL INFO %s /> </a>\r\n", r1_link, THUMBNAIL);
+    //  Recipe 2
 
+
+    // Recipe 3
 
     // sprintf(content, "%s%s %s %s\r\n<p>", content, t, l, m);
     // sprintf(content, "%s %s\r\n<p>", content, test);
