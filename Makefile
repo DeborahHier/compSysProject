@@ -1,9 +1,9 @@
 CC = gcc
-CFLAGS = -O2 -Wall -I .
+CFLAGS = -O2 -Wall -I ..
 
 # This flag includes the Pthreads library on a Linux box.
 # Others systems will probably require something different.
-LIB = -lpthread
+LIB =  -lpthread
 
 all: tiny cgi
 

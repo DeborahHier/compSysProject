@@ -1,15 +1,13 @@
 CC = gcc
 INC = ../../../../include
 SRC = ../../../../src
-LIB = -lpthread
-
-
-CFLAGS = -O2 -Wall -I$(INC) -I ..
+LIBS = -lpthread
+CFLAGS = -O2 -Wall -I$(INC) -I .
 
 all: recipe
 
 recipe: recipe.c
-	$(CC) $(CFLAGS) recipe $(SRC)/csapp.o $(LIB) -o recipe.c
+	$(CC) $(CFLAGS) recipe.c $(SRC)/csapp.o $(LIBS) -o recipe
 
 clean:
 	rm -f recipe *~
