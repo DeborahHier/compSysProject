@@ -37,11 +37,9 @@ int main(void) {
     int clientfd = Open_clientfd(host, port);
     Rio_readinitb(&rio, clientfd);
 
-    // if (clientfd == -1) {   // if it couldn't establish connection
-    //  printf("ERROR: connection could not be established.");
-    //  fflush(stdout);
-    //  exit(1);
-    //}
+    if (clientfd == -1) {   // if it couldn't establish connection
+      printf("ERROR: connection could not be established.");
+    }
 
     char response[MAXLINE];
     Rio_writen(clientfd, buffer, MAXLINE);        // send the request to API
@@ -69,7 +67,11 @@ int main(void) {
     r3 = strchr(title1, '\"');
     *r3 = '\0';
     strcpy(r1_title, title1);
+
     //      href
+
+
+    // DO LINK AND THUMBNAIL TOGETHER
     char link1[MAXLINE], link1_2[MAXLINE], r1_link[MAXLINE];
     char *l1, *l2;
     strcpy(link1, r3 + 1);
@@ -83,7 +85,6 @@ int main(void) {
     //      ingredients
 
 
-
     // r2 = strchr(r1 + 1, '}');
     // *r2 = '\0';
     // strcpy(recipe2, r1 + 1);
@@ -92,54 +93,17 @@ int main(void) {
     // strcpy(recipe3, r2 + 1);
 
 
-    // char t1[MAXLINE], t2[MAXLINE], t3[MAXLINE];
-    // sscanf(title, "%s %s %s", test, test3, test4);
-    // char *title1_1 = t1;
-    // char *title1_2 = t2;
-    // char *title1_3 = t3;
-    // sprintf(content, "<h2> %s %s %s  \r\n</h2>", title1_1, title1_2, title1_3);
-
-  //  if (response[1] == 't' && response[2] == 'i' && response[3] == 't'      // if its a "title" field
-    //  && response[4] == 'l' && response[5] == 'e')
-
-      //   }
-
-
-
-    // strcpy(test, response_split + 3);
-    // sscanf(test, "%s", &test2);
-    // sprintf(content, "%s %s\n", test);
-
     // sprintf(content, "%s%s\n", content, response);
 
-    // parse XML
-    // FILE *response;
-    // response = fopen("response.xml", "w+");   // open response.xml in writing mode
-    // if (response) {                           // if the file is opened successfully:
-    //   fputs(xml, response);                   //    put the xml response from API in reponse file
-    // }
-    // fclose(response); // close file
-
-    // response = fopen("response.xml", "r"); // open file for reading
-
-    //if (response) {    // if opened successfully
-    //  printf("File contents:\n");
-    //  char ch;
-    //  while ( (ch = fgetc(response)) != EOF ) {
-    //    printf("%c", ch);
-    //  }
-    //} else {
-    //  printf("Failed to open the file for reading\n");
-    //}
-
-    // ezxml_t recipes = ezxml_parse_file("response.xml");
-    // sprintf(content, "<h1> %s </h1>\n", ezxml_get(recipes, "recipe", 2, "title", -1));
-    // ezxml_free(recipes);
 
     // Make response body
-    sprintf(content, "<h1> Recipe Results for \"%s:\"\r\n</h1>", arg1);
-    sprintf(content, "<h2> %s\r\n</h2>", r1_title);
-    sprintf(content, "<a href=\"%s\"/> Click here for the recipe!\r\n</a>", r1_link);
+    sprintf(content, "<h1> Recipe Results for \"%s:\"</h1>\r\n", arg1);
+    sprintf(content, "<h2> %s </h2>\r\n", r1_title);
+
+    // ------ ADD IN WITH THUMBNAIL ---------
+    // sprintf(content, "<a href=\"%s\"/> <img THUMBNAIL INFO %s /> </a>\r\n", r1_link, THUMBNAIL);
+
+
     // sprintf(content, "%s%s %s %s\r\n<p>", content, t, l, m);
     // sprintf(content, "%s %s\r\n<p>", content, test);
     // sprintf(content, "%s\r\n<p>", content);
