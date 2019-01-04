@@ -13,12 +13,9 @@ int main(void) {
       p = strchr(buf, '=');
     	*p = '\0';
       strcpy(search_val, buf);
-      // char *b = strchr(p + 1, "&");
-      // *b = '\0';
       strcpy(arg1, p + 1);
-      // strcpy(arg2, b + 1);
     }
-    // ?format=xml&
+
     sprintf(buffer, "GET http://recipepuppy.com/api/?q=%s\n", arg1);   // save request to buffer
 
     // establish connection with API
@@ -43,7 +40,7 @@ int main(void) {
     *response_split = '\0';
     strcpy(response, response_split + 1);         // save necessary info in response
 
-    // get top 3 search results for recipe
+    // Extract top 3 search results for recipe
     // Extract recipe 1:
     //      title
     char recipe1[MAXLINE];
@@ -82,7 +79,7 @@ int main(void) {
     *i3 = '\0';
     strcpy(r1_ingredients, ingredients1_3);
     //      thumbnail
-    char thumbnail1_1[MAXLINE], thumbnail1_2[MAXLINE], thumbnail[MAXLINE];
+    char thumbnail1_1[MAXLINE], thumbnail1_2[MAXLINE], thumbnail[MAXLINE];     // access denied for all thumbnails???
     char *th1, *th2;
     strcpy(thumbnail1_1, i3 +1);
     th1 = strchr(thumbnail1_1, ':');
@@ -195,19 +192,19 @@ int main(void) {
     //    Recipe 1
     sprintf(content, "%s%s:<p>\r\n", content, r1_title);                                      // title
     sprintf(content, "%sIngredients: %s <p>\r\n", content, r1_ingredients);                   // ingredients
-    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the full recipe here!\"/></a>\r\n<p>",
+    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the recipe here!\"/></a>\r\n<p>",
             content, r1_link, thumbnail);                                                     // link and thumbnail
 
     //  Recipe 2
     sprintf(content, "%s%s:<p>\r\n", content, r2_title);                                      // title
     sprintf(content, "%sIngredients: %s <p>\r\n", content, r2_ingredients);                   // ingredients
-    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the full recipe here!\"/></a>\r\n<p>",
+    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the recipe here!\"/></a>\r\n<p>",
             content, r2_link, thumbnail2);                                                    // link and thumbnail
 
     // Recipe 3
     sprintf(content, "%s%s:<p>\r\n", content, r3_title);                                      // title
     sprintf(content, "%sIngredients: %s <p>\r\n", content, r3_ingredients);                   // ingredients
-    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the full recipe here!\"/></a>\r\n<p>",
+    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the recipe here!\"/></a>\r\n<p>",
             content, r3_link, thumbnail3);                                                    // link and thumbnail
 
     sprintf(content, "%sThanks for visiting!\r\n", content);
