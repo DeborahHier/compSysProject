@@ -78,8 +78,8 @@ int main(void) {
     i3 = strchr(ingredients1_3, '\"');
     *i3 = '\0';
     strcpy(r1_ingredients, ingredients1_3);
-    //      thumbnail
-    char thumbnail1_1[MAXLINE], thumbnail1_2[MAXLINE], thumbnail[MAXLINE];     // access denied for all thumbnails???
+    //      thumbnail (access denied for all thumbnails)
+    char thumbnail1_1[MAXLINE], thumbnail1_2[MAXLINE], thumbnail[MAXLINE];
     char *th1, *th2;
     strcpy(thumbnail1_1, i3 +1);
     th1 = strchr(thumbnail1_1, ':');
@@ -192,20 +192,17 @@ int main(void) {
     //    Recipe 1
     sprintf(content, "%s%s:<p>\r\n", content, r1_title);                                      // title
     sprintf(content, "%sIngredients: %s <p>\r\n", content, r1_ingredients);                   // ingredients
-    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the recipe here!\"/></a>\r\n<p>",
-            content, r1_link, thumbnail);                                                     // link and thumbnail
+    sprintf(content, "%s<a href=%s> Get the recipe here! </a>\r\n<p>", content, r1_link);     // link
 
     //  Recipe 2
     sprintf(content, "%s%s:<p>\r\n", content, r2_title);                                      // title
     sprintf(content, "%sIngredients: %s <p>\r\n", content, r2_ingredients);                   // ingredients
-    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the recipe here!\"/></a>\r\n<p>",
-            content, r2_link, thumbnail2);                                                    // link and thumbnail
+    sprintf(content, "%s<a href=%s> Get the recipe here! </a>\r\n<p>", content, r2_link);     // link
 
     // Recipe 3
     sprintf(content, "%s%s:<p>\r\n", content, r3_title);                                      // title
     sprintf(content, "%sIngredients: %s <p>\r\n", content, r3_ingredients);                   // ingredients
-    sprintf(content, "%s<a href=%s> <img src=%s alt=\"Get the recipe here!\"/></a>\r\n<p>",
-            content, r3_link, thumbnail3);                                                    // link and thumbnail
+    sprintf(content, "%s<a href=%s> Get the recipe here! </a>\r\n<p>", content, r3_link);     // link
 
     sprintf(content, "%sThanks for visiting!\r\n", content);
     // Generate HTTP response
